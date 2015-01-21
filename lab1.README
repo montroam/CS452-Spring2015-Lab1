@@ -1,1 +1,5 @@
-name, date, description
+Allison Montroy, 1/21/15, Lab 1
+
+I created an onclick function for the canvas element. 
+Within the function, the shapes are iterated between 0 and 2, then reset to 0.
+In the onclick function, a new buffer is created when calling the next shape, and then the render is called again.
