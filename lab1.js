@@ -1,3 +1,12 @@
+/*
+
+
+ALLISON MONTROY
+1/21/15
+
+
+
+*/
 var gl;
 var points;
 var i=1;
