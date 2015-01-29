@@ -15,9 +15,10 @@ window.onload = function init()
     var canvas = document.getElementById( "gl-canvas" );
     gl = WebGLUtils.setupWebGL( canvas );
     if ( !gl ) { alert( "WebGL isn't available" ); }
-	var t_vertices = new Float32Array([-.75, -.75, 0, .75, .75, -.75]); 
-	var sq_vertices = new Float32Array([-.75, -.75, -.75, .75, .75, .75, .75,-.75]); 
-	var st_vertices = new Float32Array([ 0, .75, .75, .25, .5, -.75, -.5, -.75, -.75,.25]); 
+	
+	var t_vertices = [-.75, -.75, 0, .75, .75, -.75]; 
+	var sq_vertices = [-.75, -.75, -.75, .75, .75, .75, .75,-.75]; 
+	var st_vertices = [ 0, .75, .75, .25, .5, -.75, -.5, -.75, -.75,.25]; 	
 	
     //
     //  Configure WebGL
@@ -31,9 +32,12 @@ window.onload = function init()
     gl.useProgram( program );
     
     // Load the data into the GPU
- 	var original = gl.createBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, original );
-    gl.bufferData( gl.ARRAY_BUFFER,t_vertices, gl.STATIC_DRAW ); 
+
+	var bt = gl.createBuffer();
+	var bsq = gl.createBuffer();
+	var bst = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, bt );
+    gl.bufferData( gl.ARRAY_BUFFER,flatten(t_vertices), gl.STATIC_DRAW ); 
 	
     // Associate our shader variables with our data buffer
 	var vPosition = gl.getAttribLocation( program, "vPosition" );
@@ -46,19 +50,16 @@ window.onload = function init()
 		
 		// Load the data into the GPU
 		if(i==0){
-		var bufferId = gl.createBuffer();
-		gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
-		gl.bufferData( gl.ARRAY_BUFFER,t_vertices, gl.STATIC_DRAW ); 
+		gl.bindBuffer( gl.ARRAY_BUFFER, bt );
+		gl.bufferData( gl.ARRAY_BUFFER,flatten(t_vertices), gl.STATIC_DRAW ); 
 		}
 		else if (i==1){
-		var bufferId2 = gl.createBuffer();
-		gl.bindBuffer( gl.ARRAY_BUFFER, bufferId2 );
-		gl.bufferData( gl.ARRAY_BUFFER,sq_vertices, gl.STATIC_DRAW );
+		gl.bindBuffer( gl.ARRAY_BUFFER, bsq );
+		gl.bufferData( gl.ARRAY_BUFFER,flatten(sq_vertices), gl.STATIC_DRAW );
 		}
 		else if(i==2){
-		var bufferId3 = gl.createBuffer();
-		gl.bindBuffer( gl.ARRAY_BUFFER, bufferId3 );
-		gl.bufferData( gl.ARRAY_BUFFER,st_vertices, gl.STATIC_DRAW );
+		gl.bindBuffer( gl.ARRAY_BUFFER, bst );
+		gl.bufferData( gl.ARRAY_BUFFER,flatten(st_vertices), gl.STATIC_DRAW );
 		}
 		
 		// Associate our shader variables with our data buffer
